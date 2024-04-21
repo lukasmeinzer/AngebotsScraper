@@ -1,0 +1,7 @@
+[URLs]
+Startpunkt = "https://www.aktionspreis.de/prospektangebote"
+
+[MySQL_Server]
+Host = "87.106.165.63"
+User = "root"
+Pwd = "root"

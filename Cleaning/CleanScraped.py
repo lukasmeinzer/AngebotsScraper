@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 
-def ScrapingAufbereitung(table_name: str):
+def ScrapingAufbereitung(table_name: str) -> tuple[pd.DataFrame, pd.DataFrame]:
     with open(f"{table_name}_scrapedData.json", "r") as infile: 
         data = json.load(infile)
     

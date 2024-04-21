@@ -5,7 +5,7 @@ from typing import Literal
 from utils import DbConnectionString
 
 
-def check_for_new_week(table_name: str):
+def check_for_new_week(table_name: str) -> bool:
     
     # einfach irgendeine DB wählen.
     # Werden jedesmal zusammen abgezogen

@@ -16,7 +16,7 @@ def ProdukteCrawler(url: str, table_name: str):
         json.dump(all_offers, outfile)
         
 
-def get_all_products(AngebotsSeiten: list):
+def get_all_products(AngebotsSeiten: list) -> list:
     ProduktSeiten = []
     
     for Seite in AngebotsSeiten:
@@ -40,7 +40,7 @@ def get_all_products(AngebotsSeiten: list):
     return list(set(ProduktSeiten))
 
 
-def get_all_urls(url: str):
+def get_all_urls(url: str) -> list:
     anbietende_Märkte=[]
     response = requests.get(url)
 
@@ -61,7 +61,7 @@ def get_all_urls(url: str):
 
 
 
-def extract_data(ProduktSeiten):
+def extract_data(ProduktSeiten) -> dict:
 
     all_data = {}
 

@@ -18,7 +18,7 @@ def check_for_new_week(table_name: str) -> bool:
     tables = list(metadata.tables.keys())
     engine.dispose()
     
-    if table_name in tables:
+    if any([table_name in table for table in tables]):
         return False
     return True
     

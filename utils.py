@@ -3,7 +3,7 @@ import toml
 import os
     
 
-def table_name() -> str:
+def TableName() -> str:
     current_year = datetime.datetime.now().isocalendar()[0]
     current_week = datetime.datetime.now().isocalendar()[1]
     

@@ -1,5 +1,6 @@
 import datetime
 import toml
+import os
     
 
 def table_name() -> str:
@@ -16,11 +17,11 @@ def readToml(section, key) -> str:
 def DbConnectionString(db_name: str) -> str:
     connection_string = (
         "mysql+mysqlconnector://"
-        + readToml("MySQL_Server", "User")
+        + os.getenv("DB_USER")
         + ":"
-        + readToml("MySQL_Server", "Pwd")
+        + os.getenv("DB_PWD")
         + "@"
-        + readToml("MySQL_Server", "Host")
+        + os.getenv("DB_HOST")
         + "/"
         + db_name
         + "?auth_plugin=mysql_native_password"

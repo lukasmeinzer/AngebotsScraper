@@ -1,6 +1,8 @@
 import datetime
 import toml
 import os
+from dotenv import load_dotenv
+load_dotenv()
     
 
 def TableName() -> str:

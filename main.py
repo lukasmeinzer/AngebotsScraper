@@ -19,13 +19,13 @@ if is_new_week:
     insert_into_db(
         df=df_meta,
         db_name="MarktMeta",
-        table_name=table_name + "_meta", 
+        table_name=table_name, 
         type="raw"
     )
     insert_into_db(
         df=df_meta, 
         db_name="MarktMeta",
-        table_name="latest" + "_meta", 
+        table_name="latest", 
         type="raw"
     )
 
@@ -33,13 +33,13 @@ if is_new_week:
     insert_into_db(
         df=df_angebote, 
         db_name="MarktAngebote",
-        table_name=table_name + "_angebote", 
+        table_name=table_name, 
         type="raw"
     )
     insert_into_db(
         df=df_angebote, 
         db_name="MarktAngebote",
-        table_name="latest" + "_angebote", 
+        table_name="latest", 
         type="raw"
     )
     print("... Crawling erfolgreich!")

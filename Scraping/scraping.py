@@ -24,7 +24,7 @@ def get_all_products(AngebotsSeiten: list) -> list:
         response = requests.get(Seite)
 
         if response.status_code != 200:
-            print(f'{Fore.YELLOW}{Seite} could not be reached.{Style.RESET_ALL}')
+            print(f"{Seite} nicht erreichbar.")
             return 
 
         html_content = response.text
@@ -33,7 +33,7 @@ def get_all_products(AngebotsSeiten: list) -> list:
         
         for url in alle_urls:
             href = url.get("href")
-            if '/angebote/' in href:
+            if "/angebote/" in href:
                 href = "/angebote/" + href.split("/")[-1] # Supermarkt Namen aus Link rausnehmen
                 ProduktSeiten.append(href)
                 
@@ -45,7 +45,7 @@ def get_all_urls(url: str) -> list:
     response = requests.get(url)
 
     if response.status_code != 200:
-        print(f'{Fore.YELLOW}{url} could not be reached.{Style.RESET_ALL}')
+        print(f"{url} nicht erreichbar.")
         return 
 
     html_content = response.text
@@ -54,7 +54,7 @@ def get_all_urls(url: str) -> list:
     
     for url in alle_urls:
         href = url.get("href")
-        if '/prospekt/' in href:
+        if "/prospekt/" in href:
             anbietende_Märkte.append(href)
         
     return list(set(anbietende_Märkte))
@@ -75,7 +75,7 @@ def extract_data(ProduktSeiten) -> dict:
         response = requests.get(url)
 
         if response.status_code != 200:
-            print(f'{Fore.YELLOW}{url} could not be reached.{Style.RESET_ALL}')
+            print(f"{url} nicht erreichbar.")
             all_data[url_text] = "nicht erreichbar"
             continue
 
@@ -87,7 +87,7 @@ def extract_data(ProduktSeiten) -> dict:
         
         
         # Meta Data
-        script_tag = soup.find_all('script', type='application/ld+json')
+        script_tag = soup.find_all("script", type="application/ld+json")
         meta_data_1 = script_tag[0]
         meta_data_2 = script_tag[1]
         
@@ -96,30 +96,30 @@ def extract_data(ProduktSeiten) -> dict:
         
         
         try:
-            url_data["uvp"] = soup.find('span', style='color:#5a5a5a;display:inline-block;padding-top:28px;font-weight:bold;font-size:13px;').text
+            url_data["uvp"] = soup.find("span", style="color:#5a5a5a;display:inline-block;padding-top:28px;font-weight:bold;font-size:13px;").text
         except:
             pass
         try:
-            url_data["kgPreis"] = soup.find('span', style='float:right;display:inline-block;color:#fff;background:#7c7c7c;border-radius:5px; padding:0 5px 0 5px;').text
+            url_data["kgPreis"] = soup.find("span", style="float:right;display:inline-block;color:#fff;background:#7c7c7c;border-radius:5px; padding:0 5px 0 5px;").text
         except:
             pass
         try:
-            url_data["name"] = soup.find(id='product_name').text
+            url_data["name"] = soup.find(id="product_name").text
         except:
             pass
         try:
-            url_data["sorte_inhalt"] = soup.find(id='sorte_inhalt').text
+            url_data["sorte_inhalt"] = soup.find(id="sorte_inhalt").text
         except:
             pass
         try:
-            url_data["produkt_id"] = soup.find('footer').find('span', style='color:#515151').text
+            url_data["produkt_id"] = soup.find("footer").find("span", style="color:#515151").text
         except:
             pass
 
         try:
-            table_rows = soup.find_all('tr', attrs={'onmouseover': True})
+            table_rows = soup.find_all("tr", attrs={"onmouseover": True})
         except:
-            print(f'{Fore.YELLOW}{url} could not be scraped.{Style.RESET_ALL}')
+            print(f"{url} konnte nicht gescraped werden.")
             url_data["Angebot"] = "keine Tabelle gefunden"
             all_data[url_text]
             continue

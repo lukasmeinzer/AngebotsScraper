@@ -5,7 +5,7 @@ from typing import Literal
 from utils import DbConnectionString
 
 
-def check_for_new_week(table_name: str) -> bool:
+def is_new_week(table_name: str) -> bool:
     
     # einfach irgendeine DB wählen.
     # Werden jedesmal zusammen abgezogen
@@ -22,7 +22,7 @@ def check_for_new_week(table_name: str) -> bool:
         return False
     return True
     
-def insert_into_db(
+def table_into_db(
     df: pd.DataFrame, 
     db_name: str,
     table_name: str, 

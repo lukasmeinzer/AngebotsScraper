@@ -1,2 +1,6 @@
 [URLs]
 Startpunkt = "https://www.aktionspreis.de/prospektangebote"
+
+[DB_Names]
+Meta = "MarktMeta"
+Angebote = "MarktAngebote"

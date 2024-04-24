@@ -26,11 +26,28 @@ def table_into_db(
     df: pd.DataFrame, 
     db_name: str,
     table_name: str, 
-    type: Literal["raw","cleaned"],
+    typ: Literal["raw","cleaned"],
     ):
+    
+    # TODO wenn alles erfolreich klappt, kann der Parameter Typ weg!
     
     engine = create_engine(DbConnectionString(db_name))
     
-    df.to_sql(f"{table_name}_{type}".lower(), engine, if_exists="replace", index=False)
+    df.to_sql(f"{table_name}_{typ}".lower(), engine, if_exists="replace", index=False)
     
     engine.dispose()
+    
+def table_from_db(
+    db_name: str,
+    table_name: str, 
+    typ: Literal["raw","cleaned"],
+    ) -> pd.DataFrame:
+    
+    engine = create_engine(DbConnectionString(db_name))
+    connection =  engine.connect()
+    
+    df = pd.read_sql_table(f"{table_name}_{typ}", connection)
+    
+    engine.dispose()
+    
+    return df

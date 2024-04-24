@@ -1,7 +1,11 @@
 from utils import readToml, TableName
 from Databasing.db_api import is_new_week, table_into_db
+
 from Scraping.scraping import ProdukteCrawler
-from Aufbereitung.Scraped import AufbereitungScraped
+from Scraping.Aufbereitung import AufbereitungScraped
+
+from Cleaning.Meta import CleanMeta
+from Cleaning.Angebote import CleanAngebote
 
 # Print-Statements werden gelogged
 
@@ -15,18 +19,25 @@ if is_new_week(table_name):
     ProdukteCrawler(url, table_name)
     df_meta, df_angebote = AufbereitungScraped(table_name)  
     
+    print("... Crawling erfolgreich")
+    
+    df_meta = CleanMeta(df_meta = df_meta)
+    df_angebote = CleanAngebote(df_angebote = df_angebote)
+    
+    print("... Cleaning erfolgreich")
+    
     # Meta Informationen
     table_into_db(
         df=df_meta,
         db_name=readToml("DB_Names", "Meta"),
         table_name=table_name, 
-        type="raw"
+        typ="cleaned"
     )
     table_into_db(
         df=df_meta, 
         db_name=readToml("DB_Names", "Meta"),
         table_name="latest", 
-        type="raw"
+        typ="cleaned"
     )
 
     # Angebots Informationen
@@ -34,15 +45,16 @@ if is_new_week(table_name):
         df=df_angebote, 
         db_name=readToml("DB_Names", "Angebote"),
         table_name=table_name, 
-        type="raw"
+        typ="cleaned"
     )
     table_into_db(
         df=df_angebote, 
         db_name=readToml("DB_Names", "Angebote"),
         table_name="latest", 
-        type="raw"
+        typ="cleaned"
     )
     
-    print("... Crawling erfolgreich!")
+    print("... Tabellen Insert erfolgreich")
+    
 else:
     print("Keine neue Woche")

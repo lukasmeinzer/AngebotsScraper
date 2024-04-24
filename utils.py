@@ -13,7 +13,7 @@ def TableName() -> str:
     return table_name
 
 def readToml(section, key) -> str:
-    data = toml.load("Config_scraping.toml")
+    data = toml.load("Config.toml")
     return data[section][key]
 
 def DbConnectionString(db_name: str) -> str:

@@ -118,7 +118,7 @@ def AufbereitungScraped(table_name: str) -> tuple[pd.DataFrame, pd.DataFrame]:
             
             angebots_rows_list.append(angebots_row)
         
-        df_angebote = pd.concat([df_angebote, pd.DataFrame(angebots_rows_list)])
+        df_angebote = pd.concat([df_angebote, pd.DataFrame(angebots_rows_list)]).reset_index(drop=True)
     
     df_meta = pd.DataFrame(meta_rows_list)
     

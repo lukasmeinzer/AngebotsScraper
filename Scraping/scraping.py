@@ -66,8 +66,9 @@ def extract_data(ProduktSeiten) -> dict:
     all_data = {}
 
     for i, url in enumerate(ProduktSeiten):
-        sys.stdout.write(f'\rScraping offered products: ({i+1}/{len(ProduktSeiten)})')
-        sys.stdout.flush()
+        # for Debugging:
+        # sys.stdout.write(f"\rScraping offered products: ({i+1}/{len(ProduktSeiten)})")
+        # sys.stdout.flush()
 
         url_text = url.rsplit("/", maxsplit=1)[1]
         url = "https://www.aktionspreis.de" + url

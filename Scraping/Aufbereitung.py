@@ -122,7 +122,7 @@ def AufbereitungScraped(table_name: str) -> tuple[pd.DataFrame, pd.DataFrame]:
     
     df_meta = pd.DataFrame(meta_rows_list)
     
-    df_meta["Datum Datenabzug"] = pd.to_datetime('today').normalize()
-    df_angebote["Datum Datenabzug"] = pd.to_datetime('today').normalize()
+    df_meta["Datum Datenabzug"] = pd.to_datetime("today").normalize()
+    df_angebote["Datum Datenabzug"] = pd.to_datetime("today").normalize()
     
     return df_meta, df_angebote

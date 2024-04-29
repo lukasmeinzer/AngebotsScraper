@@ -1,8 +1,6 @@
 import pandas as pd
 import numpy as np
 
-from Databasing.db_api import table_from_db, table_into_db
-from utils import readToml
 from Cleaning.AllgemeinCleaning import ersetzeUmlaute
 from Cleaning.AllgemeinLogik import make_ID_unique
 

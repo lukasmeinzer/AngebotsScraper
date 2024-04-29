@@ -30,28 +30,24 @@ if is_new_week(table_name):
     table_into_db(
         df=df_meta,
         db_name=readToml("DB_Names", "Meta"),
-        table_name=table_name, 
-        typ="cleaned"
+        table_name=table_name
     )
     table_into_db(
         df=df_meta, 
         db_name=readToml("DB_Names", "Meta"),
-        table_name="latest", 
-        typ="cleaned"
+        table_name="latest"
     )
 
     # Angebots Informationen
     table_into_db(
         df=df_angebote, 
         db_name=readToml("DB_Names", "Angebote"),
-        table_name=table_name, 
-        typ="cleaned"
+        table_name=table_name
     )
     table_into_db(
         df=df_angebote, 
         db_name=readToml("DB_Names", "Angebote"),
-        table_name="latest", 
-        typ="cleaned"
+        table_name="latest"
     )
     
     print("... Tabellen Insert erfolgreich")

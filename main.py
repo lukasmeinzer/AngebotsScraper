@@ -1,5 +1,5 @@
 from utils import readToml, TableName
-from Databasing.db_api import is_new_week, table_into_db
+from Databasing.db_ops import is_new_week, table_into_db
 
 from Scraping.scraping import ProdukteCrawler
 from Scraping.Aufbereitung import AufbereitungScraped

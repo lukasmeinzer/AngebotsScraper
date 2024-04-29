@@ -1,9 +1,7 @@
 import pandas as pd
 
 def make_ID_unique(df: pd.DataFrame, namensspalte: str) -> pd.DataFrame:
-    
-    # TODO Achtung: Hier verlieren wir potenziell Infos, wenn die kürzeren Namen mehr ausgefüllte Felder haben
-    
+        
     df["tmp_Namenlänge"] = df[namensspalte].str.len()
     df = df.sort_values("tmp_Namenlänge", ascending=False)
     del df["tmp_Namenlänge"]

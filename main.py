@@ -8,56 +8,61 @@ from Scraping.Aufbereitung import AufbereitungScraped
 from Cleaning.Meta import CleanMeta
 from Cleaning.Angebote import CleanAngebote
 
-# Print-Statements werden gelogged
 
-TLog = TelegramLogger("Initialisierung")
+def main(TLog):
+    url = readToml("URLs","Startpunkt")
 
-url = readToml("URLs","Startpunkt")
+    table_name = TableName()
 
-table_name = TableName()
-
-if is_new_week(table_name):
-    TLog.neueMessage("neue Woche!")
+    if is_new_week(table_name):
+        TLog.neueMessage("neue Woche!")
     
-    ProdukteCrawler(url, table_name)
-    df_meta, df_angebote = AufbereitungScraped(table_name)  
+        ProdukteCrawler(url, table_name)
+        df_meta, df_angebote = AufbereitungScraped(table_name)  
     
-    TLog.neueMessage("Crawling erfolgreich")
+        TLog.neueMessage("Crawling erfolgreich")
     
-    df_meta = CleanMeta(df_meta = df_meta)
-    df_angebote = CleanAngebote(df_angebote = df_angebote)
+        df_meta = CleanMeta(df_meta = df_meta)
+        df_angebote = CleanAngebote(df_angebote = df_angebote)
     
-    TLog.neueMessage("Cleaning erfolgreich.")
+        TLog.neueMessage("Cleaning erfolgreich.")
     
     # Meta Informationen
-    table_into_db(
+        table_into_db(
         df=df_meta,
         db_name=readToml("DB_Names", "Meta"),
         table_name=table_name
     )
-    table_into_db(
+        table_into_db(
         df=df_meta, 
         db_name=readToml("DB_Names", "Meta"),
         table_name="latest"
     )
 
     # Angebots Informationen
-    table_into_db(
+        table_into_db(
         df=df_angebote, 
         db_name=readToml("DB_Names", "Angebote"),
         table_name=table_name
     )
-    table_into_db(
+        table_into_db(
         df=df_angebote, 
         db_name=readToml("DB_Names", "Angebote"),
         table_name="latest"
     )
     
-    TLog.neueMessage("Tabellen Insert erfolgreich.")
+        TLog.neueMessage("Tabellen Insert erfolgreich.")
     
-else:
-    TLog.neueMessage("Keine neue Woche.")
+    else:
+        TLog.neueMessage("Keine neue Woche.")
 
 
-TLog.release()
+if __name__ == "__main__": 
+    TLog = TelegramLogger("Initialisierung")
     
+    try:
+        main(TLog)
+    except Exception as e:
+        TLog.neueMessage(f"Exception occured: {str(e)}")
+        
+    TLog.release()

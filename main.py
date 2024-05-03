@@ -1,5 +1,6 @@
 from utils import readToml, TableName
 from Databasing.db_ops import is_new_week, table_into_db
+from Bot.Logger import TelegramLogger
 
 from Scraping.scraping import ProdukteCrawler
 from Scraping.Aufbereitung import AufbereitungScraped
@@ -9,22 +10,24 @@ from Cleaning.Angebote import CleanAngebote
 
 # Print-Statements werden gelogged
 
+TLog = TelegramLogger("Initialisierung")
+
 url = readToml("URLs","Startpunkt")
 
 table_name = TableName()
 
 if is_new_week(table_name):
-    print("Neue Woche ...")
+    TLog.neueMessage("neue Woche!")
     
     ProdukteCrawler(url, table_name)
     df_meta, df_angebote = AufbereitungScraped(table_name)  
     
-    print("... Crawling erfolgreich")
+    TLog.neueMessage("Crawling erfolgreich")
     
     df_meta = CleanMeta(df_meta = df_meta)
     df_angebote = CleanAngebote(df_angebote = df_angebote)
     
-    print("... Cleaning erfolgreich")
+    TLog.neueMessage("Cleaning erfolgreich.")
     
     # Meta Informationen
     table_into_db(
@@ -50,7 +53,11 @@ if is_new_week(table_name):
         table_name="latest"
     )
     
-    print("... Tabellen Insert erfolgreich")
+    TLog.neueMessage("Tabellen Insert erfolgreich.")
     
 else:
-    print("Keine neue Woche")
+    TLog.neueMessage("Keine neue Woche.")
+
+
+TLog.release()
+    

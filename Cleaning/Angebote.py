@@ -14,6 +14,7 @@ def CleanAngebote(df_angebote: pd.DataFrame):
     
     lst_betroffene_Spalten = ["Produkt Name", "Markt Name", "kg/Li Preis"]
     df = ersetzeUmlaute(df, lst_betroffene_Spalten)
+    df = df.replace(r'^\s*$', np.nan, regex=True) # empty strings
     
     df["Filial ID"] = df["Filial ID"].str.extract(pat=r"'#filiale_(\d+)'")
     

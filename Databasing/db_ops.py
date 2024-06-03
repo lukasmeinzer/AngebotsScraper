@@ -27,8 +27,6 @@ def table_into_db(
     table_name: str
     ):
     
-    # TODO wenn alles erfolreich klappt, kann der Parameter Typ weg!
-    
     engine = create_engine(DbConnectionString(db_name))
     
     df.to_sql(f"{table_name}".lower(), engine, if_exists="replace", index=False)

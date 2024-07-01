@@ -3,8 +3,11 @@ import pandas as pd
 def make_ID_unique(df: pd.DataFrame, namensspalte: str) -> pd.DataFrame:
         
     df["tmp_Namenlänge"] = df[namensspalte].str.len()
-    df = df.sort_values("tmp_Namenlänge", ascending=False)
+    df["tmp_NA_Anteile"] = df.isna().sum(axis=1)
+    
+    df = df.sort_values(["tmp_Namenlänge", "tmp_NA_Anteile"], ascending=[False, True])
     del df["tmp_Namenlänge"]
+    del df["tmp_NA_Anteile"]
     
     eindeutige_Namen_je_ID = (
         df.groupby("Produkt ID")[namensspalte]

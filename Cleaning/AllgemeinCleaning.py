@@ -14,6 +14,7 @@ def ersetzeUmlaute(df: pd.DataFrame, lst_betroffene_Spalten: list) -> pd.DataFra
         "Ã\x9c": "Ü",
         "Ã©": "é",
         "Ã¨": "è",
+        "&": "und"
     }
     df[lst_betroffene_Spalten] = df[lst_betroffene_Spalten].replace(replace_dict, regex=True)
     

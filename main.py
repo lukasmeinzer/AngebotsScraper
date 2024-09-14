@@ -36,7 +36,7 @@ def main(TLog):
         table_into_db(
         df=df_meta, 
         db_name=readToml("DB_Names", "Meta"),
-        table_name="latest"
+        table_name="latest_produkt"
     )
 
     # Angebots Informationen
@@ -48,7 +48,7 @@ def main(TLog):
         table_into_db(
         df=df_angebote, 
         db_name=readToml("DB_Names", "Angebote"),
-        table_name="latest"
+        table_name="latest_markt"
     )
     
         TLog.neueMessage("Tabellen Insert erfolgreich.")

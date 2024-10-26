@@ -30,7 +30,7 @@ def CleanAngebote(df_angebote: pd.DataFrame):
     
     df["Prozente"] = df["Prozente"].str.strip("-").str.strip(" %").replace(pd.NA, np.nan).astype(float)
     
-    df[["Preis je Anteil", "Anteil"]] = df["kg/Li Preis"].str.split(" je ", expand=True)
+    df[["Preis je Anteil", "Anteil"]] = df["kg/Li Preis"].str.split(" je ", n=1, expand=True)
     
     f_Ausnahme = df["Preis je Anteil"].str.contains(r"beim Kauf|ClubCard|Kiste|Kasten|Karton|Versand", case=False, na=False)
     df["Preis je Anteil"] = df["Preis je Anteil"].str.strip("€").str.strip().str.replace(",", ".")

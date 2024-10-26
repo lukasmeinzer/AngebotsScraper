@@ -35,8 +35,11 @@ def CleanMeta(df_meta: pd.DataFrame):
         .astype(float)
     )
     
-    df[["UVP je Anteil", "Anteil"]] = df["UVP kg/Li Preis"].str.split(" je ", expand=True)
-    df["UVP je Anteil"] = df["UVP je Anteil"].str.strip("€").str.strip().str.replace(",", ".")
+    if df["UVP kg/Li Preis"].notna().any():
+        df[["UVP je Anteil", "Anteil"]] = df["UVP kg/Li Preis"].str.split(" je ", expand=True)
+        df["UVP je Anteil"] = df["UVP je Anteil"].str.strip("€").str.strip().str.replace(",", ".")
+    else:
+        df[["UVP je Anteil", "Anteil"]] = pd.NA
     del df["UVP kg/Li Preis"]
     
     ### Logik

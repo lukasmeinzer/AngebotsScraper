@@ -21,6 +21,8 @@ def AufbereitungScraped(table_name: str) -> tuple[pd.DataFrame, pd.DataFrame]:
         
     meta_rows_list = []
     for _, produkt_info in data.items():
+        if produkt_info == "nicht erreichbar":
+            continue
         # für df_meta
         var_name = produkt_info["meta_data_1"]["name"]
         var_imageLink = produkt_info["meta_data_1"]["image"][0]

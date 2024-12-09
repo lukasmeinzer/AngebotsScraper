@@ -18,7 +18,7 @@ def main(TLog):
         TLog.neueMessage("neue Woche!")
     
         ProdukteCrawler(url, table_name)
-        df_meta, df_angebote = AufbereitungScraped(table_name)  
+        df_meta, df_angebote = AufbereitungScraped(table_name)
     
         TLog.neueMessage("Crawling erfolgreich")
     

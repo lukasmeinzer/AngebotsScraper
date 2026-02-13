@@ -25,8 +25,9 @@ def CleanMeta(df_meta: pd.DataFrame):
     df.loc[f_keinInhalt, "Sorte"] = pd.NA
     del df["Sorte/Inhalt"]
     
-    df["UVP"] = (
-        df["UVP"]    
+    f_uvp = df["UVP"].notna()
+    df.loc[f_uvp, "UVP"] = (
+        df.loc[f_uvp, "UVP"]    
         .str.strip("UVP:")
         .str.strip("€")
         .str.strip()

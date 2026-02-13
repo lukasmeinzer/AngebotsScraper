@@ -40,7 +40,10 @@ def AufbereitungScraped(table_name: str) -> tuple[pd.DataFrame, pd.DataFrame]:
         var_ursprungsURL = produkt_info["meta_data_2"]["itemListElement"][-1]["item"]["@id"]
         var_kategorie = produkt_info["meta_data_2"]["itemListElement"][1]["item"]["name"]
         var_Gruppe = produkt_info["meta_data_2"]["itemListElement"][2]["item"]["name"]
-        var_uvp =  produkt_info["uvp"]
+        try:
+            var_uvp =  produkt_info["uvp"]
+        except:
+            var_uvp =  pd.NA
         try:
             var_uvpKgLiPreis = produkt_info["kgPreis"]
         except:
